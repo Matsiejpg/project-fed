@@ -1,13 +1,27 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const [coins, setCoins] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.coinpaprika.com/v1/coins")
+      .then((response) => response.json())
+      .then((data) => setCoins(data.slice(0, 10)))
+      .catch((error) => console.error(error));
+  }, []);
 
   return (
     <>
-      <h1>Hello, world!</h1>
+      <h1>Top 10 Coins</h1>
+      <ul>
+        {coins.map((coin) => (
+          <li key={coin.id}>
+            <h2>{coin.name}</h2>
+            <p>{coin.symbol}</p>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }

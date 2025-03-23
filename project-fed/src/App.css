@@ -1,12 +1,9 @@
-#root {
-  /* max-width: 1280px; */
-  /* margin: 0 auto; */
-  padding: 2rem;
-}
+
 
 .coins{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .coin {

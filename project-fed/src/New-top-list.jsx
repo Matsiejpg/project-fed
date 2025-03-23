@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import SearchBar from "./search";
 
 function NewTopList() {
   const [coins, setCoins] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); // State voor de zoekterm
+  const navigate = useNavigate(); // Gebruik useNavigate voor navigatie
 
   useEffect(() => {
     fetch(
@@ -31,10 +33,14 @@ function NewTopList() {
       coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // Functie die wordt aangeroepen bij een klik op een coin
+  const handleCoinClick = (coinId) => {
+    navigate(`/coin/${coinId}`); // Navigeer naar de detailpagina
+  };
+
   return (
     <div className="container">
       <h2 className="top-list-title">Cryptocurrencies</h2>
-      {/* Geef de zoekterm en de setSearchTerm functie door aan SearchBar */}
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <section className="top-list">
         <ul className="coins">
@@ -51,7 +57,12 @@ function NewTopList() {
             const textColor = priceChange >= 0 ? "green" : "red";
 
             return (
-              <li key={coin.id} className="coin list-grid">
+              <li
+                key={coin.id}
+                className="coin list-grid"
+                onClick={() => handleCoinClick(coin.id)} // Maak de row klikbaar
+                style={{ cursor: "pointer" }} // Voeg een pointer-cursor toe
+              >
                 <p>{coin.market_cap_rank}</p>
                 <img src={coin.image} alt={coin.name} className="coin-logo" />
                 <div className="coin-info">

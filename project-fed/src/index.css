@@ -89,9 +89,27 @@ h1 {
   font-style: italic;
 }
 
+.search-bar {
+  width: 450px;
+  align-self: center;
+  padding: 18px 40px;
+  font-size: 1.125rem;
+  text-align: center;
+  border-radius: 100px;
+  background-color: #282828;
+  border: none;
+  color: white;
+  margin-bottom: 48px;
+  border: 2px solid #656565;
+}
+
+.search-bar::placeholder {
+  color: rgba(255, 255, 255, 0.75);
+}
+
 .coin-header {
   font-weight: 500;
-  color: rgb(206, 255, 83);
+  color: rgba(255, 255, 255, 0.5);
 
 }
 

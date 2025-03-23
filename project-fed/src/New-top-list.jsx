@@ -3,6 +3,7 @@ import SearchBar from "./search";
 
 function NewTopList() {
   const [coins, setCoins] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // State voor de zoekterm
 
   useEffect(() => {
     fetch(
@@ -24,10 +25,17 @@ function NewTopList() {
     }).format(value);
   };
 
+  const filteredCoins = coins.filter(
+    (coin) =>
+      coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <div className="container">
       <h2 className="top-list-title">Cryptocurrencies</h2>
-      <SearchBar />
+      {/* Geef de zoekterm en de setSearchTerm functie door aan SearchBar */}
+      <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <section className="top-list">
         <ul className="coins">
           <li className="coin-header list-grid">
@@ -38,7 +46,7 @@ function NewTopList() {
             <p>Change</p>
             <p>Market Cap</p>
           </li>
-          {coins.map((coin) => {
+          {filteredCoins.map((coin) => {
             const priceChange = coin.price_change_percentage_24h;
             const textColor = priceChange >= 0 ? "green" : "red";
 

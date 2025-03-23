@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import "./App.css";
-import TopList from "./Top-list";
+import NewTopList from "./New-top-list";
 
 function App() {
   return (
     <>
-      <TopList />
+      <NewTopList />
     </>
   );
 }

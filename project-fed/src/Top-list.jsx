@@ -4,13 +4,13 @@ function TopList() {
   const [coins, setCoins] = useState([]);
 
   useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/coins")
+    fetch("http://localhost:3000/coins")
       .then((response) => response.json())
       .then((data) => {
         const top10Coins = data.slice(0, 10);
 
         const pricePromises = top10Coins.map((coin) =>
-          fetch(`https://api.coinpaprika.com/v1/tickers/${coin.id}`)
+          fetch(`http://localhost:3000/tickers/${coin.id}`)
             .then((response) => response.json())
             .then((priceData) => ({
               ...coin,

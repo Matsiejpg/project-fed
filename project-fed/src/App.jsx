@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./App.css";
 import NewTopList from "./New-top-list";
-import HeroSection from "./hero-section";
+import HeroSection from "./Hero-section";
 import NavSection from "./Nav-section";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Landing from "./Landing";

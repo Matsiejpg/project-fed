@@ -7,7 +7,7 @@
 }
 
 #root {
-  padding-top: 48px;
+  padding: 48px 0 96px 0;
 }
 
 :root {
@@ -25,6 +25,13 @@
 body {
   min-width: 320px;
   min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
 }
 
 nav {
@@ -57,13 +64,9 @@ nav span {
   flex-direction: column;
   margin: 0 auto;
   gap: 24px;
-  min-height: calc(100vh - 48px - 66px);
+  min-height: calc(100vh - 250px);
   align-items: center;
   justify-content: center;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
 }
 
 h1 {
@@ -85,3 +88,29 @@ h1 {
   font-weight: 700;
   font-style: italic;
 }
+
+.coin-header {
+  font-weight: 500;
+  color: rgb(206, 255, 83);
+
+}
+
+.top-list {
+  width: 100%;
+}
+
+.top-list-title {
+  font-size: 3.125rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.list-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  margin-bottom: 20px;
+  align-items: center;
+}
+
+

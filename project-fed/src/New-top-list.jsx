@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import SearchBar from "./search";
 
 function NewTopList() {
   const [coins, setCoins] = useState([]);
@@ -14,39 +15,50 @@ function NewTopList() {
       .catch((error) => console.error(error));
   }, []);
 
-  const getDecimal = (price) => {
-    if (price >= 1) return 2;
-    if (price >= 0.1) return 4;
-    return 8;
+  const formatCurrency = (value, currency = "USD") => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency,
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 8,
+    }).format(value);
   };
 
   return (
-    <>
-      <h2>Cryptocurrencies</h2>
-      <ul className="coins">
-        {coins.map((coin) => (
-          <li key={coin.id} className="coin">
-            <p>{coin.market_cap_rank}</p>
-            <img src={coin.image} alt={coin.name} className="coin-logo" />
-            <div className="coin-info">
-              <h3>{coin.name}</h3>
-              <p>{coin.symbol}</p>
-            </div>
-            <div>
-              <p>
-                ${coin.current_price.toFixed(getDecimal(coin.current_price))}
-              </p>
-            </div>
-            <div>
-              <p>{coin.price_change_percentage_24h.toFixed(2)}%</p>
-            </div>
-            <div>
-              <p>${coin.market_cap}</p>
-            </div>
+    <div className="container">
+      <h2 className="top-list-title">Cryptocurrencies</h2>
+      <SearchBar />
+      <section className="top-list">
+        <ul className="coins">
+          <li className="coin-header list-grid">
+            <p>#</p>
+            <p></p>
+            <p>Name</p>
+            <p>Price</p>
+            <p>Change</p>
+            <p>Market Cap</p>
           </li>
-        ))}
-      </ul>
-    </>
+          {coins.map((coin) => {
+            const priceChange = coin.price_change_percentage_24h;
+            const textColor = priceChange >= 0 ? "green" : "red";
+
+            return (
+              <li key={coin.id} className="coin list-grid">
+                <p>{coin.market_cap_rank}</p>
+                <img src={coin.image} alt={coin.name} className="coin-logo" />
+                <div className="coin-info">
+                  <h3>{coin.name}</h3>
+                  <p>{coin.symbol.toUpperCase()}</p>
+                </div>
+                <p>{formatCurrency(coin.current_price)}</p>
+                <p style={{ color: textColor }}>{priceChange.toFixed(2)}%</p>
+                <p>{formatCurrency(coin.market_cap)}</p>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+    </div>
   );
 }
 

@@ -8,25 +8,34 @@ function NewTopList() {
   const navigate = useNavigate();
 
   async function fetchCoins() {
-    fetch(
-      "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setCoins(data);
-      })
-      .catch((error) => console.error(error));
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false&=${Date.now()}`
+      );
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log("Fetched data:", data); // Debugging
+      setCoins(data);
+    } catch (error) {
+      console.error("Error fetching coins:", error);
+    }
   }
 
   useEffect(() => {
+    console.log("Component mounted");
     fetchCoins();
 
     const interval = setInterval(() => {
+      console.log("Refreshing data..."); // Debugging
       fetchCoins();
-    }, 60000); // 60 seconden
+    }, 6000000000); // 60 seconden
 
-    // Ruim het interval op wanneer de component wordt ontkoppeld
-    return () => clearInterval(interval);
+    return () => {
+      console.log("Clearing interval...");
+      clearInterval(interval);
+    };
   }, []);
 
   const formatCurrency = (value, currency = "USD") => {
@@ -43,6 +52,8 @@ function NewTopList() {
       coin.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  console.log("Filtered coins:", filteredCoins); // Debugging
 
   const handleCoinClick = (coinId) => {
     navigate(`/coin/${coinId}`);

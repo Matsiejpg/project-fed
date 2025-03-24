@@ -97,14 +97,24 @@ h1 {
   text-align: center;
   border-radius: 100px;
   background-color: #282828;
-  border: none;
   color: white;
   margin-bottom: 48px;
   border: 2px solid #656565;
+  transition: ease-out 0.2s;
 }
 
 .search-bar::placeholder {
   color: rgba(255, 255, 255, 0.75);
+  transition: ease-out 0.2s;
+}
+
+.search-bar:focus {
+  outline: none;
+  border: 2px solid #b8b8b8;
+}
+
+.search-bar:focus::placeholder {
+  color: rgba(255, 255, 255, 0.25);
 }
 
 .coin-header {

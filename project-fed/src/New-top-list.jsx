@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import SearchBar from "./search";
 
 function NewTopList() {
   const [coins, setCoins] = useState([]);
-  const [searchTerm, setSearchTerm] = useState(""); // State voor de zoekterm
-  const navigate = useNavigate(); // Gebruik useNavigate voor navigatie
+  const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
-  useEffect(() => {
+  async function fetchCoins() {
     fetch(
       "https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false"
     )
@@ -16,6 +16,17 @@ function NewTopList() {
         setCoins(data);
       })
       .catch((error) => console.error(error));
+  }
+
+  useEffect(() => {
+    fetchCoins();
+
+    const interval = setInterval(() => {
+      fetchCoins();
+    }, 60000); // 60 seconden
+
+    // Ruim het interval op wanneer de component wordt ontkoppeld
+    return () => clearInterval(interval);
   }, []);
 
   const formatCurrency = (value, currency = "USD") => {
@@ -33,9 +44,8 @@ function NewTopList() {
       coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Functie die wordt aangeroepen bij een klik op een coin
   const handleCoinClick = (coinId) => {
-    navigate(`/coin/${coinId}`); // Navigeer naar de detailpagina
+    navigate(`/coin/${coinId}`);
   };
 
   return (
@@ -49,19 +59,19 @@ function NewTopList() {
             <p></p>
             <p>Name</p>
             <p>Price</p>
-            <p>Change</p>
+            <p>24h%</p>
             <p>Market Cap</p>
           </li>
           {filteredCoins.map((coin) => {
             const priceChange = coin.price_change_percentage_24h;
-            const textColor = priceChange >= 0 ? "green" : "red";
+            const textColor = priceChange >= 0 ? "#668925" : "#E33E33";
 
             return (
               <li
                 key={coin.id}
                 className="coin list-grid"
-                onClick={() => handleCoinClick(coin.id)} // Maak de row klikbaar
-                style={{ cursor: "pointer" }} // Voeg een pointer-cursor toe
+                onClick={() => handleCoinClick(coin.id)}
+                style={{ cursor: "pointer" }}
               >
                 <p>{coin.market_cap_rank}</p>
                 <img src={coin.image} alt={coin.name} className="coin-logo" />

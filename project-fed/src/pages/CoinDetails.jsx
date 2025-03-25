@@ -11,13 +11,33 @@ function CoinDetails() {
   const [coin, setCoin] = useState(null);
   const [selectedSymbol, setSelectedSymbol] = useState("btc");
 
+  async function fetchCoinDetails() {
+    try {
+      const response = await fetch(
+        `https://api.coingecko.com/api/v3/coins/${id}`
+      );
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+      const data = await response.json();
+      setCoin(data);
+    } catch (error) {
+      console.error("Error fetching coin:", error);
+    }
+  }
+
   useEffect(() => {
-    fetch(`https://api.coingecko.com/api/v3/coins/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setCoin(data);
-      })
-      .catch((error) => console.error(error));
+    fetchCoinDetails();
+
+    const interval = setInterval(() => {
+      console.log("Refreshing coin data...");
+      fetchCoinDetails();
+    }, 60000);
+
+    return () => {
+      console.log("Clearing interval...");
+      clearInterval(interval);
+    };
   }, [id]);
 
   if (!coin) {

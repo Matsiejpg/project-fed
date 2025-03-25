@@ -17,7 +17,7 @@ function NewTopList() {
         throw new Error(`API error: ${response.status}`);
       }
       const data = await response.json();
-      console.log("Fetched data:", data); // Debugging
+      console.log("Fetched data:", data);
       setCoins(data);
     } catch (error) {
       console.error("Error fetching coins:", error);
@@ -29,9 +29,9 @@ function NewTopList() {
     fetchCoins();
 
     const interval = setInterval(() => {
-      console.log("Refreshing data..."); // Debugging
+      console.log("Refreshing data...");
       fetchCoins();
-    }, 6000000000); // 60 seconden
+    }, 60000);
 
     return () => {
       console.log("Clearing interval...");
@@ -54,7 +54,7 @@ function NewTopList() {
       coin.symbol.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  console.log("Filtered coins:", filteredCoins); // Debugging
+  console.log("Filtered coins:", filteredCoins);
 
   const handleCoinClick = (coinId) => {
     navigate(`/coin/${coinId}`);

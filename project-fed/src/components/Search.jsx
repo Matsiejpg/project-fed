@@ -1,11 +1,13 @@
+import styles from "./Search.module.css";
+
 function SearchBar({ searchTerm, setSearchTerm }) {
   return (
     <input
       type="text"
-      placeholder="Search Cryptocurrencies.."
+      placeholder="Search Cryptocurrencies"
       value={searchTerm}
       onChange={(e) => setSearchTerm(e.target.value)}
-      className="search-bar"
+      className={styles.searchbar}
     />
   );
 }

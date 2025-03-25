@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import "./CoinDetails.css";
 
 function CoinDetails() {
   const { id } = useParams();

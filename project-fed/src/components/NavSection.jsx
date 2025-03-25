@@ -1,3 +1,5 @@
+import styles from "./NavSection.module.css";
+
 function NavSection() {
   return (
     <nav>

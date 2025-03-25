@@ -1,10 +1,6 @@
-import { useState, useEffect } from "react";
-import "./App.css";
-import NewTopList from "./New-top-list";
-import NavSection from "./Nav-section";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Landing from "./Landing";
-import CoinDetails from "./CoinDetails";
+import Landing from "./pages/Landing";
+import CoinDetails from "./pages/CoinDetails";
 
 function App() {
   return (

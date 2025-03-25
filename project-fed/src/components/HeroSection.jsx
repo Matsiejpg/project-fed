@@ -1,6 +1,8 @@
+import styles from "./HeroSection.module.css";
+
 function HeroSection() {
   return (
-    <section className="hero-section">
+    <section className={styles.herosection}>
       <h1>
         Explore the <span>Top 100</span> Cryptocurrencies
       </h1>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "./search";
+import styles from "./TopList.module.css";
 
 function NewTopList() {
   const [coins, setCoins] = useState([]);
@@ -61,13 +62,12 @@ function NewTopList() {
 
   return (
     <div className="container">
-      <h2 className="top-list-title">Cryptocurrencies</h2>
+      <h2 className={styles.toplisttitle}>Cryptocurrencies</h2>
       <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      <section className="top-list">
-        <ul className="coins">
-          <li className="coin-header list-grid">
+      <section className={styles.toplist}>
+        <ul className={styles.coins}>
+          <li className={`${styles.coinheader} ${styles.listgrid}`}>
             <p>#</p>
-            <p></p>
             <p>Name</p>
             <p>Price</p>
             <p>24h%</p>
@@ -80,15 +80,21 @@ function NewTopList() {
             return (
               <li
                 key={coin.id}
-                className="coin list-grid"
+                className={`${styles.coin} ${styles.listgrid}`}
                 onClick={() => handleCoinClick(coin.id)}
                 style={{ cursor: "pointer" }}
               >
                 <p>{coin.market_cap_rank}</p>
-                <img src={coin.image} alt={coin.name} className="coin-logo" />
-                <div className="coin-info">
-                  <h3>{coin.name}</h3>
-                  <p>{coin.symbol.toUpperCase()}</p>
+                <div className={styles.coininfo}>
+                  <img
+                    src={coin.image}
+                    alt={coin.name}
+                    className={styles.coinlogo}
+                  />
+                  <div className={styles.coinname}>
+                    <h3>{coin.name}</h3>
+                    <p>{coin.symbol.toUpperCase()}</p>
+                  </div>
                 </div>
                 <p>{formatCurrency(coin.current_price)}</p>
                 <p style={{ color: textColor }}>{priceChange.toFixed(2)}%</p>

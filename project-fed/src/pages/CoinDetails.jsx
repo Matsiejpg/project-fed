@@ -107,13 +107,11 @@ function CoinDetails() {
             <IconButton href={coin.links.homepage} icon={FaGlobe}>
               Website
             </IconButton>
-            <IconButton
-              href={coin.links.whitepaper}
-              icon={FaFileAlt}
-              className={checkWhitepaper}
-            >
-              Whitepaper
-            </IconButton>
+            {coin.links.whitepaper ? (
+              <IconButton href={coin.links.whitepaper} icon={FaFileAlt}>
+                Whitepaper
+              </IconButton>
+            ) : null}
           </div>
         </div>
         <div>

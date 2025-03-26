@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "./search";
+import SearchBar from "./Search";
 import styles from "./TopList.module.css";
 
 function NewTopList() {

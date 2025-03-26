@@ -2,7 +2,7 @@ import styles from "./NavSection.module.css";
 
 function NavSection() {
   return (
-    <nav>
+    <nav className={styles.nav}>
       <h2>
         <span>Coin</span>explorer
       </h2>

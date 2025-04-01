@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import styles from "./CoinDetails.module.css";
 import TradingviewWidget from "../components/TradingviewWidget";
 import NavSection from "../components/NavSection";
@@ -10,6 +10,8 @@ function CoinDetails() {
   const { id } = useParams();
   const [coin, setCoin] = useState(null);
   const [selectedSymbol, setSelectedSymbol] = useState("btc");
+  const navigate = useNavigate(); // Initialize navigate function
+
 
   async function fetchCoinDetails() {
     try {
@@ -119,6 +121,7 @@ function CoinDetails() {
           <TradingviewWidget symbol={coin.symbol.toUpperCase()} />
         </div>
       </section>
+      <button onClick={() => navigate("/")} className={styles.goback}>Go Back</button>
     </>
   );
 }

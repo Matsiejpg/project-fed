@@ -91,3 +91,26 @@
     font-size: 1rem;
     color: rgba(255, 255, 255, 0.75);
 }
+
+.goback {
+    display: flex;
+    justify-self: center;
+    padding: 18px 40px;
+    font-size: 1.125rem;
+    text-align: center;
+    border-radius: 100px;
+    background: #282828;
+    color: rgba(255, 255, 255, 0.75);
+    border: 2px solid #656565;
+    transition: ease-out 0.4s;
+    margin-top: 32px;
+    box-shadow: 0px 0px 200px rgba(206, 255, 83, 0.0);
+}
+
+.goback:hover {
+    border: 2px solid rgb(206, 255, 83);
+    box-shadow: 0px 0px 200px rgba(206, 255, 83, 0.5);
+    cursor: pointer;
+    color: #212121;
+    background: rgba(206, 255, 83, 1);
+}

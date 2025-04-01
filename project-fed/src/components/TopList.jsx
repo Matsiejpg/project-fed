@@ -2,10 +2,12 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SearchBar from "./Search";
 import styles from "./TopList.module.css";
+import LoadMore from "./LoadMore";
 
 function NewTopList() {
   const [coins, setCoins] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [visibleCount, setVisibleCount] = useState(25);
   const navigate = useNavigate();
 
   async function fetchCoins() {
@@ -60,6 +62,8 @@ function NewTopList() {
     navigate(`/coin/${coinId}`);
   };
 
+  const loadMore = () => setVisibleCount((prev) => Math.min(prev + 25, filteredCoins.length));
+
   return (
     <div className="container">
       <h2 className={styles.toplisttitle}>Cryptocurrencies</h2>
@@ -73,7 +77,7 @@ function NewTopList() {
             <p>24h%</p>
             <p>Market Cap</p>
           </li>
-          {filteredCoins.map((coin) => {
+          {filteredCoins.slice(0, visibleCount).map((coin) => {
             const priceChange = coin.price_change_percentage_24h;
             const textColor = priceChange >= 0 ? "#668925" : "#E33E33";
 
@@ -104,6 +108,10 @@ function NewTopList() {
           })}
         </ul>
       </section>
+
+      {visibleCount < filteredCoins.length && (
+        <LoadMore onClick={loadMore} disabled={visibleCount >= filteredCoins.length} />
+      )}
     </div>
   );
 }
